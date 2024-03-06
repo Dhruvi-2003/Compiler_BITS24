@@ -30,7 +30,7 @@ void addrule(int index, non_terminals nt, int size,gitems value[]) {
     newRule->next_rule = NULL;
     RHSNode* rhshead=(RHSNode *)malloc(sizeof(RHSNode));
     RHSNode*rhsptr=rhshead;
-    if(currentrulehead!=NULL){
+    if(currentrulehead->next_rule!=NULL){
         while(currentrulehead->next_rule!=NULL)
         currentrulehead=currentrulehead->next_rule;
     }
