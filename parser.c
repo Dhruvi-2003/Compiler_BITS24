@@ -30,12 +30,9 @@ void addrule(int index, non_terminals nt, int size,gitems value[]) {
     newRule->next_rule = NULL;
     RHSNode* rhshead=(RHSNode *)malloc(sizeof(RHSNode));
     RHSNode*rhsptr=rhshead;
-    if(currentrulehead->next_rule!=NULL){
-        while(currentrulehead->next_rule!=NULL)
-        currentrulehead=currentrulehead->next_rule;
-    }
     rhshead->v=value[0].v;
     rhshead->isT=value[0].isTer;
+    rhshead->next=NULL;
     for(int i = 1; i < size; i++) {
         RHSNode *rhsNode = (RHSNode *)malloc(sizeof(RHSNode));
         rhsNode->v=value[i].v;
@@ -49,10 +46,15 @@ void addrule(int index, non_terminals nt, int size,gitems value[]) {
     if(currentrulehead==NULL){
         currentrulehead=newRule;
         lhsNode->rules=newRule;
+        G->rules[index-1] = lhsNode;
+        return;
     }
-    else{
+    if(currentrulehead->next_rule!=NULL){
+        while(currentrulehead->next_rule!=NULL)
+        currentrulehead=currentrulehead->next_rule;
+    }
     currentrulehead->next_rule=newRule;
-    }
+    
     // Add the LHSNode to the grammar
     G->rules[index-1] = lhsNode;
 }
